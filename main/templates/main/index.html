@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fuid">
+    <div class="main-photo">
+        <img src="{% static 'main/img/banner.jpg' %}" alt="">
+    </div>
+</div>
+
+<div class="news-tittle">
+    НОВИНКИ
+</div>
+<section class="main-content">
+    <div class="container">
+        <div class="row">
+            {% for p in posts %}
+            <div class="col-lg-3 col-sm-6 mb-3">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        <a href="{% url 'product_page' %}"><img src="{{ p.photo.url }}" alt=""></a>
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="{% url 'product_page' %}">{{ p.name }}</a></h4>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                <small>{{ p.main_price }}</small></small> {{ p.discount_price }}
+                            </div>
+                            <div class="product-links">
+                                <a href="{% url 'product_page' %}">
+                                    <ion-icon name="cart-outline"></ion-icon>
+                                </a>
+                                <a href="#">
+                                    <ion-icon name="heart-outline" class="wish-list"></ion-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+</section>
+
+{% endblock %}

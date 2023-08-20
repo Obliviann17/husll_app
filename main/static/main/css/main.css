@@ -1,0 +1,368 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400px;
+    color: #000;
+    background-color: #fff;
+    min-width: 320px;
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+section {
+    padding: 50px 0;
+
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+
+a:hover {
+    color: rgb(248, 96, 96) !important;
+}
+
+ion-icon {
+    font-size: 19px;
+}
+
+.news-tittle {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    color: #464646;
+}
+
+/* Header */
+.navbar-light .navbar-nav .navbar-link {
+    color: #111;
+    font-weight: 500px;
+    text-transform: uppercase;
+}
+
+.navbar-nav .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+/* Header */
+
+/* Auth */
+
+
+
+/* Auth */
+
+.main-photo img {
+    height: 400px;
+    width: 1920px;
+    object-fit: cover;
+
+}
+
+/* Carousel */
+
+/* .my-carousel {
+    padding: 0;
+}
+
+.my-carousel .carousel-item {
+    max-height: 500px;
+}
+
+.my-carousel .carousel-item img {
+    object-fit: cover;
+} */
+
+/* Carousel */
+
+/* Product-cart */
+
+.product-card {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.06);
+    transition: all .3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 14px 30px -15px rgba(0,0,0,0.75);
+}
+
+.product-thumb a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    padding: 20px;
+}
+
+.product-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.product-details {
+    padding: 20px;
+}
+
+.product-details h4 a {
+    font-weight: 500;
+    display: block;
+    height: 60px;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+
+}
+
+.product-price {
+    font-size: 18px;
+    color: #ee6e73;
+    font-weight: 600;
+}
+
+.product-price small {
+    color: #ccc;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-right: 2px;
+}
+
+.product-links a {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+
+/* Product-cart */
+
+/* Product-page */
+
+.zoom-container {
+    overflow: hidden; /* Hide the overflowing content */
+    width: 400px; /* Set the desired width of the container */
+    height: 500px; /* Set the desired height of the container */
+  }
+
+  .zoom-image {
+    width: 100%; /* Make the image fill the container */
+    transition: transform 0.3s ease; /* Add smooth transition effect */
+  }
+
+  .zoom-container:hover .zoom-image {
+    transform: scale(1.2); /* Increase the scale to zoom in (1.2 means 120% zoom) */
+  }
+
+  .main-price {
+    font-size: 23px;
+    color: red;
+  }
+
+  .main-price small{
+    color: #ccc;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-right: 2px;
+  }
+
+  .square-radio input[type="radio"] {
+    display: none; /* Hide the default radio button */
+  }
+  
+  .square-radio label {
+    display: inline-block;
+    width: 30px; /* Adjust the size of the square */
+    height: 30px; /* Adjust the size of the square */
+    border: 2px solid #999; /* Border for the square */
+    /* border-radius: 5px; Rounded corners to make it look square */
+    text-align: center;
+    line-height: 30px; /* Center the content vertically */
+    cursor: pointer;
+  }
+  
+  /* Style for the symbol */
+  .square-radio label span {
+    font-size: 16px; /* Adjust the size of the symbol */
+  }
+  
+  /* Styling for the selected radio button */
+  .square-radio input[type="radio"]:checked + label {
+    border-color: #000000; /* Change border color when selected */
+  }
+
+  .square-radio {
+    margin-bottom: 15px;
+  }
+
+  .recommended-products-header {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+  }
+/* Product-page */
+
+/* Delivery */
+
+.delivery-title {
+    text-align: center;
+    font-size: 19px;
+}
+
+h6 {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.delivery {
+    text-align: left;
+    margin-left: 400px;
+    margin-bottom: 15px;
+}
+
+.payment {
+    text-align: left;
+    margin-left: 400px;
+    margin-bottom: 15px;
+}
+
+.exchange {
+    text-align: left;
+    margin-left: 400px;
+}
+
+.delivery-info p {
+    margin-bottom: 15px;
+}
+
+.second-info {
+    font-size: 16px;
+}
+
+/* Delivery */
+
+/* About us */
+
+.about-throw img {
+    margin-top: -50px;
+    height: auto;
+    object-fit: cover;
+}
+
+.first-about {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.second-about h6 {
+    text-align: center;
+}
+
+
+/* About us */
+
+/* User profile */
+
+.user-profile h4 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.user-title {
+    padding-bottom: 15px;
+}
+
+.user-menu {
+    text-align: center;
+}
+
+.user-menu ul {
+    list-style-type: none;
+}
+
+.user-menu ul li {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.user-menu ul li a {
+    font-size: 20px;
+}
+
+
+
+.user-data label{
+    margin-bottom: 10px;
+}
+
+.user-data input {
+    margin-bottom: 10px;
+}
+
+.user-data button {
+    margin-bottom: 10px;
+}
+
+.bookmarks-title {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+/* User profile */
+
+
+/* Footer */
+
+.footer{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+}
+
+.footer h4 {
+    color: #ccc;
+    text-transform: uppercase;
+    font-size: 16px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 3px;
+}
+
+.footer a {
+    text-decoration: none;
+    transition: all .3s;
+    color: white;
+}
+
+.footer li a {
+    display: block;
+}
+
+.footer-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.footer-thumb img {
+    padding-bottom: 20px;
+    height: auto;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+/* Footer */

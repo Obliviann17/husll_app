@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="categories">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-4 col-sm-6 mb-3">
+                    <div class="hoodie">
+                        <a href="{% url 'category_product' %}">
+                                <h5>Толстовки</h5>
+                        </a>
+                        <a href="{% url 'category_product' %}">
+                            <img width="400" height="400" src="{% static 'main/img/products/chol-1.jpg' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <div class="pants">
+                    <a href="#">
+                        <h5>Штани</h5>
+                    </a>
+                    <a href="#">
+                        <img width="400" height="400" src="{% static 'main/img/products/pants.jpg' %}" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <a href="#">
+                    <h5>Спортивні костюми</h5>
+                </a>
+                <a href="#">
+                    <img width="400" height="400" src="{% static 'main/img/products/спортивний_костюм.jpg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <a href="#">
+                    <h5>Куртки</h5>
+                </a>
+                <a href="#">
+                    <img width="400" height="400" src="{% static 'main/img/products/rkurtki.jpg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <a href="#">
+                    <h5>Аксесуари</h5>
+                </a>
+                <a href="#">
+                    <img width="400" height="400" src="{% static 'main/img/products/cap.jpg' %}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <a href="#">
+                    <h5>Футболки</h5>
+                </a>
+                <a href="#">
+                    <img width="400" height="400" src="{% static 'main/img/products/1fytbolka.jpeg' %}" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+  </section>
+{% endblock %}
+  
+

@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-3">
+                <div class="zoom-container">
+                    <img class="zoom-image" src="{{ product.photo.url }}" alt="">
+                </div>
+            </div>
+          <div class="col-lg-6 col-sm-3">
+            <div class="product-head">
+              <h4>{{ product.name }}</h4>
+          </div>
+          <div class="main-price">
+              <p><small>{{ product.main_price }}</small></small> {{ product.discount_price }}</p>
+          </div>
+          <hr>
+          <div class="product-description">
+              <p class="description">
+                  {{ product.description }}
+              </p>
+          </div>
+          <hr>
+          <div>
+              <div class="square-radio">
+                  <input type="radio" id="radio1" name="radio-group">
+                  <label for="radio1"><span>S</span></label>
+
+                  <input type="radio" id="radio2" name="radio-group">
+                  <label for="radio2"><span>M</span></label>
+
+                  <input type="radio" id="radio3" name="radio-group">
+                  <label for="radio3"><span>L</span></label>
+
+                  <input type="radio" id="radio4" name="radio-group">
+                  <label for="radio4"><span>XL</span></label>
+
+                </div>
+              </div>
+              <div class="d-grid gap-2 col-6 mx-aut">
+                <button class="btn btn-dark custom-btn-lg" type="button">Купити</button>
+                <button class="btn btn-secondary custom-btn-lg" type="button">В закладки</button>
+              </div>
+          </div>
+
+
+
+            <div class="container col-lg-12 col-sm-3">
+              <hr>
+            <h4 class="recommended-products-header">РЕКОМЕНДОВАНІ ТОВАРИ</h4>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-3 col-sm-6 mb-3">
+                  <div class="product-card">
+                    <div class="product-thumb">
+                      <a href="{% url 'product_page' %}"><img src="{% static 'main/img/products/29-800x1024.jpg' %}" alt=""></a>
+                    </div>
+                    <div class="product-details">
+                      <h4><a href="{% url 'product_page' %}">Лонгслів Husll logo1 oversize</a></h4>
+                      <div class="product-bottom-details d-flex justify-content-between">
+                        <div class="product-price">
+                          <small>720 грн</small></small> 570 грн
+                        </div>
+                        <div class="product-links">
+                          <a href="{% url 'product_page' %}"><ion-icon name="cart-outline"></ion-icon></a>
+                          <a href="#"><ion-icon name="heart-outline" class="wish-list"></ion-icon></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <hr>
+    </div>
+  </section>
+{% endblock %}
+  
+
