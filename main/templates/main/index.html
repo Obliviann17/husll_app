@@ -17,16 +17,20 @@
             <div class="col-lg-3 col-sm-6 mb-3">
                 <div class="product-card">
                     <div class="product-thumb">
-                        <a href="{% url 'product_page' %}"><img src="{{ p.photo.url }}" alt=""></a>
+                        <a href="{{ p.get_absolute_url }}">{% if p.photo %}<img src="{{ p.photo.url }}" alt="">{% else %}<img src="{% static 'main/img/products/no_photo.png' %}" alt="">{% endif %}</a>
                     </div>
                     <div class="product-details">
-                        <h4><a href="{% url 'product_page' %}">{{ p.name }}</a></h4>
+                        <h4><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></h4>
                         <div class="product-bottom-details d-flex justify-content-between">
                             <div class="product-price">
-                                <small>{{ p.main_price }}</small></small> {{ p.discount_price }}
+                                {% if p.discount_price%}
+                                    <small>{{ p.main_price }}</small></small> {{ p.discount_price }}
+                                {% else %}
+                                    {{ p.main_price }}
+                                {% endif %}
                             </div>
                             <div class="product-links">
-                                <a href="{% url 'product_page' %}">
+                                <a href="{{ p.get_absolute_url }}">
                                     <ion-icon name="cart-outline"></ion-icon>
                                 </a>
                                 <a href="#">

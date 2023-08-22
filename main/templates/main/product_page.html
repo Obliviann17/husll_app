@@ -7,7 +7,11 @@
         <div class="row">
             <div class="col-lg-6 col-sm-3">
                 <div class="zoom-container">
-                    <img class="zoom-image" src="{{ product.photo.url }}" alt="">
+                    {% if product.photo %}
+                        <img class="zoom-image" src="{{ product.photo.url }}" alt="">
+                    {% else %}
+                        <img class="zoom-image" src="{% static 'main/img/products/no_photo.png' %}" alt="">
+                    {% endif %}
                 </div>
             </div>
           <div class="col-lg-6 col-sm-3">
@@ -15,7 +19,11 @@
               <h4>{{ product.name }}</h4>
           </div>
           <div class="main-price">
-              <p><small>{{ product.main_price }}</small></small> {{ product.discount_price }}</p>
+              {% if product.discount_price%}
+                    <small>{{ product.main_price }}</small></small> {{ product.discount_price }}
+              {% else %}
+                    {{ product.main_price }}
+              {% endif %}
           </div>
           <hr>
           <div class="product-description">
@@ -56,23 +64,35 @@
             <div class="container">
               <div class="row">
                 <div class="col-lg-3 col-sm-6 mb-3">
-                  <div class="product-card">
-                    <div class="product-thumb">
-                      <a href="{% url 'product_page' %}"><img src="{% static 'main/img/products/29-800x1024.jpg' %}" alt=""></a>
-                    </div>
-                    <div class="product-details">
-                      <h4><a href="{% url 'product_page' %}">Лонгслів Husll logo1 oversize</a></h4>
-                      <div class="product-bottom-details d-flex justify-content-between">
-                        <div class="product-price">
-                          <small>720 грн</small></small> 570 грн
+                    {% for recommended_product in recommended_products %}
+                        <div class="product-card">
+                            <div class="product-thumb">
+                                <a href="{% url 'product_page' recommended_product.id %}"><img
+                                        src="{{ recommended_product.photo.url }}" alt=""></a>
+                            </div>
+                            <div class="product-details">
+                                <h4><a href="{% url 'product_page' recommended_product.id %}">{{ recommended_product.name }}</a></h4>
+                                <div class="product-bottom-details d-flex justify-content-between">
+                                    <div class="product-price">
+                                        {% if recommended_product.discount_price%}
+                                            <small>{{ recommended_product.main_price }}</small></small> {{ recommended_product.discount_price }}
+                                        {% else %}
+                                            {{ recommended_product.main_price }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-links">
+                                        <a href="#">
+                                            <ion-icon name="cart-outline"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="heart-outline" class="wish-list"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-links">
-                          <a href="{% url 'product_page' %}"><ion-icon name="cart-outline"></ion-icon></a>
-                          <a href="#"><ion-icon name="heart-outline" class="wish-list"></ion-icon></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    {% endfor %}
+
                 </div>
             <hr>
     </div>
