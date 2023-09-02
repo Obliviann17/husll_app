@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="news-tittle">
+        Резулятати пошуку для {{ q }}
+    </div>
+    <section class="main-content">
+        <div class="container">
+            {% if Products %}
+            <div class="row">
+                {% for product in Products %}
+                    <div class="col-lg-3 col-sm-6 mb-3">
+                        <div class="product-card">
+                            <div class="product-thumb">
+                                <a href="{{ product.get_absolute_url }}">{% if product.photo %}
+                                    <img src="{{ product.photo.url }}" alt="">{% else %}
+                                    <img src="{% static 'main/img/products/no_photo.png' %}" alt="">{% endif %}</a>
+                            </div>
+                            <div class="product-details">
+                                <h4><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+                                <div class="product-bottom-details d-flex justify-content-between">
+                                    <div class="product-price">
+                                        {% if product.discount_price %}
+                                            <small>{{ product.main_price }}</small></small> {{ product.discount_price }}
+                                        {% else %}
+                                            {{ product.main_price }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-links">
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <ion-icon name="cart-outline"></ion-icon>
+                                        </a>
+                                        <a href="#">
+                                            <ion-icon name="heart-outline" class="wish-list"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="news-tittle">
+                    Упс... Немає резулятатів по запиту {{ q }}
+                </div>
+            {% endif %}
+    </section>
+{% endblock %}

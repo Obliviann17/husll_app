@@ -9,9 +9,15 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('categories/', views.categories, name='categories'),
     path('delivery/', views.delivery, name='delivery'),
-    path('wishlist/', views.bookmarks, name='bookmarks'),
+    path('wishlist/', views.wishlist, name='wishlist'),
     path('product/<int:product_id>', views.product_page, name='product_page'),
     path('registration/', views.registration, name='registration'),
+    path('login/', views.login_request, name='login'),
     path('404/', views.error_404, name='404-error'),
     path('category_product/<int:category_id>', views.category_product, name='category_product'),
+    path('search/', views.search, name='search'),
+    path('profile/', views.user_profile, name='profile'),
+    path('logout/', views.logout_request, name='logout')
 ]
+
+handler404 = 'main.views.error_404'
