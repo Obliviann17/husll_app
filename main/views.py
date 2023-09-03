@@ -24,6 +24,18 @@ def index(request):
 def about(request):
     return render(request, 'main/about_us.html')
 
+def user_data(request):
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.phone = request.POST.get('phone')
+        user.save()
+
+        messages.success(request, 'Профіль успішно оновлено.')
+        return redirect('profile')
+    return render(request, 'main/user_data.html')
 
 
 def change_pass(request):
