@@ -342,7 +342,6 @@ h6 {
     left: 0;
     width: 100%;
     z-index: 100; /* Ensure the footer is above the content */
-    margin-top: 500px;
 }
 
 

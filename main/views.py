@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import NewUserForm
 from django.contrib import messages
 
@@ -23,6 +23,28 @@ def index(request):
 
 def about(request):
     return render(request, 'main/about_us.html')
+
+
+
+def change_pass(request):
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        new_password1 = request.POST['new_password1']
+        new_password2 = request.POST['new_password2']
+
+        user = request.user
+
+        if user.check_password(old_password) and new_password1 == new_password2:
+            user.set_password(new_password1)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Пароль успішно змінено.')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Будь ласка, виправте помилки в формі.')
+    return render(request, 'main/chnage_pas.html')
+
+
 
 def user_profile(request):
     return render(request, 'main/user_profile.html')
