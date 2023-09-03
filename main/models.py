@@ -66,6 +66,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    region = models.CharField(max_length=100, null=True)
+    city = models.CharField(max_length=100, null=True)
+    new_post = models.CharField(max_length=100, null=True)
 
     objects = CustomUserManager()
 
@@ -89,3 +92,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        verbose_name = 'Користувачі'
+        verbose_name_plural = 'Користувачі'
+

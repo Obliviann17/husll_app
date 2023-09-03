@@ -2,8 +2,10 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from .forms import NewUserForm
+from .forms import *
 from django.contrib import messages
+
+
 
 from .models import Category, Product
 
@@ -36,6 +38,19 @@ def user_data(request):
         messages.success(request, 'Профіль успішно оновлено.')
         return redirect('profile')
     return render(request, 'main/user_data.html')
+
+def update_address(request):
+    if request.method == 'POST':
+        form = UpdateAddresForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Адресу успішно оновлено.')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Будь ласка, виправте помилки в формі.')
+    else:
+        form = UpdateAddresForm(instance=request.user)
+    return render(request, 'main/adress.html', {'form': form})
 
 
 def change_pass(request):

@@ -3,23 +3,23 @@
 
 {% block content %}
     <section class="categories">
-    <div class="container">
-        <div class="row">
-            {% for c in cats %}
-                <div class="col-lg-4 col-sm-6 mb-3">
-                    <div class="hoodie">
-                        <a href="{% url 'category_product' c.id %}">
+        <div class="container">
+            <div class="row">
+                {% for c in cats %}
+                    <div class="col-lg-4 col-sm-6 mb-3">
+                        <div class="hoodie">
+                            <a href="{% url 'category_product' c.id %}">
                                 <h5>{{ c.name }}</h5>
-                        </a>
-                        <a href="{% url 'category_product' c.id %}">
-                            <img width="400" height="400" src="{{ c.photo.url }}" alt="">
-                        </a>
+                            </a>
+                            <a href="{% url 'category_product' c.id %}">
+                                <img width="400" height="400" src="{{ c.photo.url }}" alt="">
+                            </a>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-  </section>
+    </section>
 {% endblock %}
   
 

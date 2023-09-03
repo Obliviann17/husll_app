@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from phonenumber_field.formfields import PhoneNumberField
 
-
 from .models import *
 
 
@@ -32,3 +31,7 @@ class NewUserForm(UserCreationForm):
             user.save()
         return user
 
+class UpdateAddresForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['region', 'city', 'new_post']
