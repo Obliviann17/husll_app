@@ -13,15 +13,15 @@
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <label for="region">ОБЛАСТЬ</label>
-                                    <input type="text" class="form-control" id="regionInput" name="region" value="{{ user.region }}" required>
+                                    <input type="text" class="form-control" id="regionInput" name="region" value="{{ user.region }}" placeholder="Введіть область" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="city">МІСТО</label>
-                                    <input type="text" class="form-control" id="cityInput" name="city" value="{{ user.city }}" required>
+                                    <input type="text" class="form-control" id="cityInput" name="city" value="{{ user.city }}" placeholder="Введіть місто" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new_post">ВІДДІЛЕННЯ НОВОЇ ПОШТИ</label>
-                                    <input type="text" class="form-control" id="new_postInput" name="new_post" value="{{ user.new_post }}" required>
+                                    <input type="text" class="form-control" id="new_postInput" name="new_post" value="{{ user.new_post }}" placeholder="Введіть відділення Нової пошти" required>
                                 </div>
                                 <div class="d-grid ms-auto">
                                     <button type="submit" id="searchButton" class="btn btn-dark mb-3">ПРОДОВЖИТИ</button>

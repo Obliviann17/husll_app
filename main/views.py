@@ -1,9 +1,12 @@
+from decimal import Decimal
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib import messages
+from .models import *
 
 
 
@@ -68,8 +71,8 @@ def change_pass(request):
             messages.success(request, 'Пароль успішно змінено.')
             return redirect('profile')
         else:
-            messages.error(request, 'Будь ласка, виправте помилки в формі.')
-    return render(request, 'main/chnage_pas.html')
+            messages.error(request, 'Невірний старий пароль або нові паролі не співпадають.')
+    return render(request, 'main/chanage_pas.html')
 
 
 
@@ -171,3 +174,54 @@ def search(request):
         'q': query
     }
     return render(request, 'main/search.html', context=context)
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    user = request.user
+
+    cart_items = CartItem.objects.filter(user=user, product=product)
+
+    if cart_items.exists():
+        cart_item = cart_items.first()
+        cart_item.quantity += 1
+        cart_item.save()
+    else:
+        CartItem.objects.create(user=user, product=product, quantity=1)
+
+    return redirect('cart')
+@login_required
+def cart(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+
+    # total_price = Decimal(0)
+    # for item in cart_items:
+    #     item_price = Decimal(item.product.main_price)
+    #     item_quantity = Decimal(item.quantity)
+    #     total_price += item_price * item_quantity
+
+    context = {
+        'cart_items': cart_items,
+        # 'total_price': total_price
+    }
+
+    return render(request, 'main/cart.html', context=context)
+
+@login_required
+def update_cart_quantity(request, product_id):
+    if request.method == 'POST':
+        new_quantity = int(request.POST.get('quantity', 1))
+        if new_quantity < 1:
+            new_quantity = 1
+        cart_item = CartItem.objects.get(user=request.user, product_id=product_id)
+        cart_item.quantity = new_quantity
+        cart_item.save()
+        return redirect('cart')
+
+@login_required
+def remove_product(request, product_id):
+    user = request.user
+    cart_item = get_object_or_404(CartItem, user=user, product_id=product_id)
+    cart_item.delete()
+    return redirect('cart')

@@ -34,26 +34,29 @@
           <hr>
           <div>
               <div class="square-radio">
-                  <input type="radio" id="radio1" name="radio-group">
+                  <input type="radio" id="radio1" name="size" value="S">
                   <label for="radio1"><span>S</span></label>
 
-                  <input type="radio" id="radio2" name="radio-group">
+                  <input type="radio" id="radio2" name="size" value="M">
                   <label for="radio2"><span>M</span></label>
 
-                  <input type="radio" id="radio3" name="radio-group">
+                  <input type="radio" id="radio3" name="size" value="L">
                   <label for="radio3"><span>L</span></label>
 
-                  <input type="radio" id="radio4" name="radio-group">
+                  <input type="radio" id="radio4" name="size" value="XL">
                   <label for="radio4"><span>XL</span></label>
 
                 </div>
               </div>
               <div class="d-grid gap-2 col-6 mx-aut">
-                <button class="btn btn-dark custom-btn-lg" type="button">Купити</button>
-                <button class="btn btn-secondary custom-btn-lg" type="button">В закладки</button>
+                  <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="product_id" value="{{ product.id }}">
+                      <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark custom-btn-lg">Купити</a>
+                      <button class="btn btn-secondary custom-btn-lg" type="submit">В закладки</button>
+                  </form>
               </div>
           </div>
-
 
 
             <div class="container col-lg-12 col-sm-3">

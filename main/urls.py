@@ -21,6 +21,10 @@ urlpatterns = [
     path('change_password', views.change_pass, name='change_password'),
     path('user_data/', views.user_data, name='user_data'),
     path('user_adress/', views.update_address, name='adress'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/', views.cart, name='cart'),
+    path('update_quantity/<int:product_id>/', views.update_cart_quantity, name='update_quantity'),
+    path('remove_product/<int:product_id>/', views.remove_product, name='remove_product'),
 ]
 
 handler404 = 'main.views.error_404'

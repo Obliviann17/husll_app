@@ -12,6 +12,7 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT)
 
+
     def __str__(self):
         return self.name
 
@@ -66,9 +67,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone = PhoneNumberField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    region = models.CharField(max_length=100, null=True)
-    city = models.CharField(max_length=100, null=True)
-    new_post = models.CharField(max_length=100, null=True)
+    region = models.CharField(max_length=100, default='', verbose_name='Region')
+    city = models.CharField(max_length=100, default='', verbose_name='City')
+    new_post = models.CharField(max_length=100, default='', verbose_name='New Post')
 
     objects = CustomUserManager()
 
@@ -97,3 +98,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Користувачі'
         verbose_name_plural = 'Користувачі'
 
+class CartItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
