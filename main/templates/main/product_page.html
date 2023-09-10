@@ -20,86 +20,88 @@
           </div>
           <div class="main-price">
               {% if product.discount_price%}
-                    <small>{{ product.main_price }}</small></small> {{ product.discount_price }}
+                    <small>{{ product.main_price }} грн</small></small> {{ product.discount_price }} грн
               {% else %}
-                    {{ product.main_price }}
+                    {{ product.main_price }} грн
               {% endif %}
           </div>
           <hr>
           <div class="product-description">
               <p class="description">
-                  {{ product.description }}
+                  {{ product.description|linebreaksbr }}
               </p>
           </div>
           <hr>
-          <div>
-              <div class="square-radio">
-                  <input type="radio" id="radio1" name="size" value="S">
-                  <label for="radio1"><span>S</span></label>
-
-                  <input type="radio" id="radio2" name="size" value="M">
-                  <label for="radio2"><span>M</span></label>
-
-                  <input type="radio" id="radio3" name="size" value="L">
-                  <label for="radio3"><span>L</span></label>
-
-                  <input type="radio" id="radio4" name="size" value="XL">
-                  <label for="radio4"><span>XL</span></label>
-
-                </div>
-              </div>
-              <div class="d-grid gap-2 col-6 mx-aut">
-                  <form method="POST" action="{% url 'add_to_cart' product.id %}">
+              <div>
+                  <form action="{% url 'add_to_cart' product.id %}" method="POST">
                       {% csrf_token %}
-                      <input type="hidden" name="product_id" value="{{ product.id }}">
-                      <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark custom-btn-lg">Купити</a>
-                      <button class="btn btn-secondary custom-btn-lg" type="submit">В закладки</button>
+                      <div class="square-radio">
+                          <input type="radio" id="radio1" name="size" value="S">
+                          <label for="radio1"><span>S</span></label>
+
+                          <input type="radio" id="radio2" name="size" value="M">
+                          <label for="radio2"><span>M</span></label>
+
+                          <input type="radio" id="radio3" name="size" value="L">
+                          <label for="radio3"><span>L</span></label>
+
+                          <input type="radio" id="radio4" name="size" value="XL">
+                          <label for="radio4"><span>XL</span></label>
+                      </div>
+                      <hr>
+                      <div class="d-grid gap-2 mb-3 mx-aut">
+                          <input type="hidden" name="product_id" value="{{ product.id }}">
+                          <button class="btn btn-dark custom-btn-lg" type="submit">Купити</button>
+                          <button class="btn btn-secondary custom-btn-lg" type="submit">В закладки</button>
+                      </div>
                   </form>
               </div>
-          </div>
 
-
-            <div class="container col-lg-12 col-sm-3">
-              <hr>
-            <h4 class="recommended-products-header">РЕКОМЕНДОВАНІ ТОВАРИ</h4>
-            </div>
-
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-3 col-sm-6 mb-3">
-                    {% for recommended_product in recommended_products %}
-                        <div class="product-card">
-                            <div class="product-thumb">
-                                <a href="{% url 'product_page' recommended_product.id %}"><img
-                                        src="{{ recommended_product.photo.url }}" alt=""></a>
-                            </div>
-                            <div class="product-details">
-                                <h4><a href="{% url 'product_page' recommended_product.id %}">{{ recommended_product.name }}</a></h4>
-                                <div class="product-bottom-details d-flex justify-content-between">
-                                    <div class="product-price">
-                                        {% if recommended_product.discount_price%}
-                                            <small>{{ recommended_product.main_price }}</small></small> {{ recommended_product.discount_price }}
-                                        {% else %}
-                                            {{ recommended_product.main_price }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="product-links">
-                                        <a href="#">
-                                            <ion-icon name="cart-outline"></ion-icon>
-                                        </a>
-                                        <a href="#">
-                                            <ion-icon name="heart-outline" class="wish-list"></ion-icon>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-
-                </div>
             <hr>
+        </div>
     </div>
   </section>
-{% endblock %}
-  
+  <section>
+      <div class="container col-lg-12 col-sm-3">
+          <hr>
+          <h4 class="recommended-products-header">РЕКОМЕНДОВАНІ ТОВАРИ</h4>
+      </div>
 
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-3 col-sm-6 mb-3">
+                  {% for recommended_product in recommended_products %}
+                      <div class="product-card">
+                          <div class="product-thumb">
+                              <a href="{% url 'product_page' recommended_product.id %}" type="submit"><img
+                                      src="{{ recommended_product.photo.url }}" alt=""></a>
+                          </div>
+                          <div class="product-details">
+                              <h4>
+                                  <a href="{% url 'product_page' recommended_product.id %}">{{ recommended_product.name }}</a>
+                              </h4>
+                              <div class="product-bottom-details d-flex justify-content-between">
+                                  <div class="product-price">
+                                      {% if recommended_product.discount_price %}
+                                          <small>{{ recommended_product.main_price }} грн</small></small>
+                                          {{ recommended_product.discount_price }} грн
+                                      {% else %}
+                                          {{ recommended_product.main_price }} грн
+                                      {% endif %}
+                                  </div>
+                                  <div class="product-links">
+                                      <a href="#">
+                                          <ion-icon name="cart-outline"></ion-icon>
+                                      </a>
+                                      <a href="#">
+                                          <ion-icon name="heart-outline" class="wish-list"></ion-icon>
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+
+              </div>
+  </section>
+{% endblock %}

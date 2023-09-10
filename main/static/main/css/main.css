@@ -182,7 +182,7 @@ ion-icon {
   .square-radio input[type="radio"] {
     display: none; /* Hide the default radio button */
   }
-  
+
   .square-radio label {
     display: inline-block;
     width: 30px; /* Adjust the size of the square */
@@ -193,12 +193,12 @@ ion-icon {
     line-height: 30px; /* Center the content vertically */
     cursor: pointer;
   }
-  
+
   /* Style for the symbol */
   .square-radio label span {
     font-size: 16px; /* Adjust the size of the symbol */
   }
-  
+
   /* Styling for the selected radio button */
   .square-radio input[type="radio"]:checked + label {
     border-color: #000000; /* Change border color when selected */

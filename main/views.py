@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
@@ -175,35 +174,70 @@ def search(request):
     }
     return render(request, 'main/search.html', context=context)
 
+# @login_required
+# def add_to_cart(request, product_id):
+#     product = get_object_or_404(Product, pk=product_id)
+#     user = request.user
+#     size = request.POST.get('size')
+#     cart_items = CartItem.objects.filter(user=user, product=product, size=size)
+#
+#     if request.method == 'POST':
+#         if size:
+#             if cart_items.exists():
+#                 cart_item = cart_items.first()
+#                 cart_item.quantity += 1
+#                 cart_item.save()
+#         else:
+#             CartItem.objects.create(user=user, product=product, quantity=1, size=size)
+#     else:
+#         messages.error(request, 'Please select a size!')
+#         return redirect('product_page', product_id=product_id)
+#
+#     return redirect('cart')
+
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     user = request.user
 
-    cart_items = CartItem.objects.filter(user=user, product=product)
+    if request.method == 'POST':
+        size = request.POST.get('size')
 
-    if cart_items.exists():
-        cart_item = cart_items.first()
-        cart_item.quantity += 1
-        cart_item.save()
-    else:
-        CartItem.objects.create(user=user, product=product, quantity=1)
+        if not size:
+            messages.error(request, 'Please select a size!')
+            return redirect('product_page', product_id=product_id)
+        else:
+            cart_items = CartItem.objects.filter(user=user, product=product, size=size)
 
-    return redirect('cart')
+        if cart_items.exists():
+            cart_item = cart_items.first()
+            cart_item.quantity += 1
+            cart_item.save()
+        else:
+            CartItem.objects.create(user=user, product=product, quantity=1, size=size)
+
+        return redirect('cart')
+
+    return redirect('product_page', product_id=product_id)
+
 @login_required
 def cart(request):
     user = request.user
     cart_items = CartItem.objects.filter(user=user)
+    total_price = 0
 
-    # total_price = Decimal(0)
-    # for item in cart_items:
-    #     item_price = Decimal(item.product.main_price)
-    #     item_quantity = Decimal(item.quantity)
-    #     total_price += item_price * item_quantity
+    for item in cart_items:
+        item_price = item.product.main_price
+        item_price_discount = item.product.discount_price
+        item_quantity = item.quantity
+        if item_price and item_price_discount:
+            total_price += int(item_price_discount) * item_quantity
+        elif item_price:
+            total_price += int(item_price) * item_quantity
 
     context = {
         'cart_items': cart_items,
-        # 'total_price': total_price
+        'total_price': total_price
     }
 
     return render(request, 'main/cart.html', context=context)
@@ -214,14 +248,26 @@ def update_cart_quantity(request, product_id):
         new_quantity = int(request.POST.get('quantity', 1))
         if new_quantity < 1:
             new_quantity = 1
-        cart_item = CartItem.objects.get(user=request.user, product_id=product_id)
-        cart_item.quantity = new_quantity
-        cart_item.save()
-        return redirect('cart')
 
-@login_required
-def remove_product(request, product_id):
-    user = request.user
-    cart_item = get_object_or_404(CartItem, user=user, product_id=product_id)
-    cart_item.delete()
+        user = request.user
+        cart_items = CartItem.objects.filter(user=user, product_id=product_id)
+
+        if cart_items.exists():
+            for cart_item in cart_items:
+                cart_item.quantity = new_quantity
+                cart_item.save()
+
     return redirect('cart')
+
+def remove_product(request, product_id, size):
+    user = request.user
+    try:
+        # Filter CartItem by product_id and size for the current user
+        cart_item = CartItem.objects.get(user=user, product_id=product_id, size=size)
+        cart_item.delete()
+        return redirect('cart')
+    except CartItem.DoesNotExist:
+        # Handle the case where the CartItem does not exist
+        return messages.error(request, "CartItem not found")
+
+

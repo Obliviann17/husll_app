@@ -52,12 +52,12 @@
                 </li>
                 <li class="nav-item">
                     {% if user.is_authenticated %}
-                        <a class="nav-link active" href="{% url 'profile' %}"><ion-icon name="person-outline"></ion-icon></a>
+                        <a class="nav-link active" href="{% url 'profile' %}"><ion-icon name="person-outline" style="font-size: 20px;"></ion-icon></a>
                     {% else %}
                         <div class="dropdown">
                             <a class="dropdown-toggle nav-link" href="#" role="button" id="dropdownMenuLink"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <ion-icon name="person-outline"></ion-icon>
+                                <ion-icon name="person-outline" style="font-size: 20px;"></ion-icon>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{% url 'login' %}">Вхід в акаунт</a></li>
@@ -103,12 +103,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'wishlist' %}">
-                        <ion-icon name="heart-outline"></ion-icon>
+                        <ion-icon name="heart-outline" style="font-size: 22px;"></ion-icon>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'cart' %}">
-                        <ion-icon name="cart-outline"></ion-icon>
+                        <ion-icon name="cart-outline" style="font-size: 22px;"></ion-icon>
                     </a>
                 </li>
             </ul>

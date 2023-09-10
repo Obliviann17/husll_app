@@ -24,7 +24,8 @@ urlpatterns = [
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.cart, name='cart'),
     path('update_quantity/<int:product_id>/', views.update_cart_quantity, name='update_quantity'),
-    path('remove_product/<int:product_id>/', views.remove_product, name='remove_product'),
+    path('remove_product/<int:product_id>/<str:size>/', views.remove_product, name='remove_product'),
+    # path('size/<int:product_id/', views.get_size, name='size')
 ]
 
 handler404 = 'main.views.error_404'
