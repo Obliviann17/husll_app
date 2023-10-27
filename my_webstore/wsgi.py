@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
 
@@ -16,3 +17,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_webstore.settings')
 application = get_wsgi_application()
 
 app = application
+
+if os.environ.get('ENV') == 'production':
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
