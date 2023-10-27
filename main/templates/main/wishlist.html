@@ -6,25 +6,45 @@
 <section class="bookmarks">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-sm-6 mb-3">
-                <div class="likes-product">
-                  <div class="product-thumb">
-                    <a href="#"><img src="{% static 'main/img/products/29-800x1024.jpg' %}" alt=""></a>
-                  </div>
-                  <div class="product-details">
-                    <h4><a href="#">Лонгслів Husll logo1 oversize</a></h4>
-                    <div class="product-bottom-details d-flex justify-content-between">
-                      <div class="product-price">
-                        <small>720 грн</small></small> 570 грн
-                      </div>
-                      <div class="product-links">
-                        <a href="#"><ion-icon name="cart-outline"></ion-icon></a>
-                        <a href="#"><ion-icon name="heart-outline" class="wish-list"></ion-icon></a>
-                      </div>
+            {% if wishlist_items %}
+                {% for item in wishlist_items %}
+                    <div class="col-lg-3 col-sm-6 mb-3">
+                        <div class="product-card">
+                            <div class="product-thumb">
+                                <a href="{% url 'product_page' item.product_id %}">{% if item.product.photo %}
+                                    <img src="{{ item.product.photo.url }}" alt="">{% else %}
+                                    <img src="{% static 'main/img/products/no_photo.png' %}" alt="">{% endif %}</a>
+                            </div>
+                            <div class="product-details">
+                                <h4><a href="{% url 'product_page' item.product_id %}">{{ item.product.name }}</a></h4>
+                                <div class="product-bottom-details d-flex justify-content-between">
+                                    <div class="product-price">
+                                        {% if item.product.discount_price %}
+                                            <small>{{ item.product.main_price }} грн</small></small>
+                                            {{ item.product.discount_price }} грн
+                                        {% else %}
+                                            {{ item.product.main_price }} грн
+                                        {% endif %}
+                                    </div>
+                                    <div class="product-links">
+                                        <a href="{% url 'product_page' item.product_id %}"
+                                           class="btn btn-outline-secondary btn-sm">Купити</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'remove_wishlist' item.id %}">Видалити</a>
                     </div>
-                  </div>
+                {% endfor %}
+            {% else %}
+                <div class="mb-4 mx-auto text-center">
+                            <ion-icon name="sad-outline" style="font-size: 200px;"></ion-icon>
+                            <h2 class="mt-2">В закладках немає таварів :(</h2>
+                            <p style="font-size: 20px; margin-top: 15px">Перейти до покупок!</p>
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Продовжити</a>
                 </div>
-            </div>
+            {% endif %}
+
         </div>
     </div>
 </section>

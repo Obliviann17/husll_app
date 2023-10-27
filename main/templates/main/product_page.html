@@ -52,15 +52,29 @@
                       <div class="d-grid gap-2 mb-3 mx-aut">
                           <input type="hidden" name="product_id" value="{{ product.id }}">
                           <button class="btn btn-dark custom-btn-lg" type="submit">Купити</button>
-                          <button class="btn btn-secondary custom-btn-lg" type="submit">В закладки</button>
                       </div>
                   </form>
+                      {% if product.id not in wish_item %}
+                          <form action="{% url 'add_to_wishlist' product.id %}" method="POST">
+                              {% csrf_token %}
+                              <div class="d-grid gap-2 mb-3 mx-aut">
+                                  <button class="btn btn-secondary custom-btn-lg" type="submit">В закладки</button>
+                              </div>
+                          </form>
+                      {% else %}
+                          <form action="{% url 'wishlist'%}" method="POST" class="wishlist-form">
+                              {% csrf_token %}
+                              <div class="d-grid gap-2 mb-3 mx-aut">
+                                  <button class="btn btn-secondary custom-btn-lg" type="submit"><ion-icon name="heart" class="wish-list" style="font-size: 21px;"></ion-icon> Видалити з закладок</button>
+                              </div>
+                          </form>
+                      {% endif %}
               </div>
 
             <hr>
         </div>
     </div>
-  </section>
+   </section>
   <section>
       <div class="container col-lg-12 col-sm-3">
           <hr>

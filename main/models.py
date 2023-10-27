@@ -103,3 +103,15 @@ class CartItem(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     size = models.CharField(max_length=5, null=True, blank=True)
+
+class WishListItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+class OrderItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(CartItem, on_delete=models.CASCADE)
+    addres = models.CharField(max_length=100, null=True, blank=True)
+    delivery_method = models.CharField(max_length=50)
+    payment_method = models.CharField(max_length=50)

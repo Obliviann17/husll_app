@@ -368,3 +368,24 @@ h6 {
 }
 
 /* Footer */
+
+.wishlist-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.wishlist-button:hover {
+    color: red; /* Змінити колір кнопки при наведенні */
+}
+
+.custom-disabled-input {
+    background-color: #f0f0f0;
+    color: #777;
+    font-size: 12px;
+    text-align: center;
+    line-height: 24px;
+}
+

@@ -13,6 +13,23 @@
 <section class="main-content">
     <div class="container">
         <div class="row">
+            {% for msg in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ msg }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.success %} class="{{ message.success }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
             {% for p in posts %}
             <div class="col-lg-3 col-sm-6 mb-3">
                 <div class="product-card">
@@ -29,13 +46,25 @@
                                     {{ p.main_price }} грн
                                 {% endif %}
                             </div>
-                            <div class="product-links">
+                            <div class="product-links d-flex align-items-center">
                                 <a href="{{ p.get_absolute_url }}">
                                     <ion-icon name="cart-outline" style="font-size: 24px;"></ion-icon>
                                 </a>
-                                <a href="#">
-                                    <ion-icon name="heart-outline" class="wish-list" style="font-size: 24px;"></ion-icon>
-                                </a>
+                                {% if p.id not in wish_item %}
+                                    <form method="post" action="{% url 'add_to_wishlist' p.id %}" class="wishlist-form ml-4">
+                                        {% csrf_token %}
+                                        <button type="submit" class="wishlist-button">
+                                            <ion-icon name="heart-outline" class="" style="font-size: 24px;"></ion-icon>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="{% url 'wishlist'%}" class="wishlist-form ml-4">
+                                        {% csrf_token %}
+                                        <button type="submit" class="wishlist-button">
+                                            <ion-icon name="heart" class="wish-list" style="font-size: 24px;"></ion-icon>
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

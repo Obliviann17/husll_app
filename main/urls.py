@@ -9,7 +9,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('categories/', views.categories, name='categories'),
     path('delivery/', views.delivery, name='delivery'),
-    path('wishlist/', views.wishlist, name='wishlist'),
     path('product/<int:product_id>', views.product_page, name='product_page'),
     path('registration/', views.registration, name='registration'),
     path('login/', views.login_request, name='login'),
@@ -25,7 +24,10 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),
     path('update_quantity/<int:product_id>/', views.update_cart_quantity, name='update_quantity'),
     path('remove_product/<int:product_id>/<str:size>/', views.remove_product, name='remove_product'),
-    # path('size/<int:product_id/', views.get_size, name='size')
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('add_to_wishlist/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('remove_wishlist/<int:item_id>/', views.remove_wishlist, name='remove_wishlist'),
+    path('create_order/', views.order_view, name='order'),
 ]
 
 handler404 = 'main.views.error_404'

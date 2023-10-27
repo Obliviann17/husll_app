@@ -16,11 +16,18 @@ def index(request):
     posts = Product.objects.all().order_by('name')[:21]
     cats = Category.objects.all()
 
+    wish_item = []
+    if user.is_authenticated:
+        wish_item = WishListItem.objects.filter(user=user).values_list('product__id', flat=True)
+    else:
+        wish_item = []
+
     context = {
             'posts': posts,
             'cats': cats,
             'cat_selected': 0,
-            'user': user
+            'user': user,
+            'wish_item': wish_item,
     }
 
     return render(request, 'main/index.html', context=context)
@@ -101,15 +108,21 @@ def category_product(request, category_id):
 def delivery(request):
     return render(request, 'main/delivery.html')
 
-def wishlist(request):
-    return render(request, 'main/wishlist.html')
 
 def product_page(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     recommended_products = Product.objects.filter(cat=product.cat).exclude(id=product_id)[:4]
+    user = request.user
+
+    if user.is_authenticated:
+        wish_item = WishListItem.objects.filter(user=user).values_list('product__id', flat=True)
+    else:
+        wish_item = []
+
     context = {
         'product': product,
         'recommended_products': recommended_products,
+        'wish_item': wish_item,
     }
     return render(request, 'main/product_page.html', context=context)
 
@@ -174,26 +187,34 @@ def search(request):
     }
     return render(request, 'main/search.html', context=context)
 
-# @login_required
-# def add_to_cart(request, product_id):
-#     product = get_object_or_404(Product, pk=product_id)
-#     user = request.user
-#     size = request.POST.get('size')
-#     cart_items = CartItem.objects.filter(user=user, product=product, size=size)
-#
-#     if request.method == 'POST':
-#         if size:
-#             if cart_items.exists():
-#                 cart_item = cart_items.first()
-#                 cart_item.quantity += 1
-#                 cart_item.save()
-#         else:
-#             CartItem.objects.create(user=user, product=product, quantity=1, size=size)
-#     else:
-#         messages.error(request, 'Please select a size!')
-#         return redirect('product_page', product_id=product_id)
-#
-#     return redirect('cart')
+@login_required
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    user = request.user
+
+    # if request.method == 'POST':
+    #     WishListItem.objects.create(user=user, product=product)
+
+    if WishListItem.objects.filter(user=user, product=product).exists():
+        return redirect('home')
+    else:
+        # Add the item to the wishlist
+        WishListItem.objects.create(user=user, product=product)
+
+    return redirect('wishlist')
+
+
+@login_required
+def wishlist(request):
+    wishlist_items = WishListItem.objects.filter(user=request.user)
+    return render(request, 'main/wishlist.html', {'wishlist_items': wishlist_items})
+
+@login_required
+def remove_wishlist(request, item_id):
+    item = get_object_or_404(WishListItem, pk=item_id)
+    if item.user == request.user:
+        item.delete()
+    return redirect('wishlist')
 
 @login_required
 def add_to_cart(request, product_id):
@@ -204,7 +225,7 @@ def add_to_cart(request, product_id):
         size = request.POST.get('size')
 
         if not size:
-            messages.error(request, 'Please select a size!')
+            messages.error(request, 'Please select a size before adding to the cart.', extra_tags='size_not_selected')
             return redirect('product_page', product_id=product_id)
         else:
             cart_items = CartItem.objects.filter(user=user, product=product, size=size)
@@ -271,3 +292,49 @@ def remove_product(request, product_id, size):
         return messages.error(request, "CartItem not found")
 
 
+@login_required
+def order_view(request):
+    user = request.user
+    cart_items = CartItem.objects.filter(user=user)
+    total_price = 0
+
+    for item in cart_items:
+        item_price = item.product.main_price
+        item_price_discount = item.product.discount_price
+        item_quantity = item.quantity
+        if item_price and item_price_discount:
+            total_price += int(item_price_discount) * item_quantity
+        elif item_price:
+            total_price += int(item_price) * item_quantity
+
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = user
+            order.save()
+
+            for item in cart_items:
+                OrderItem.objects.create(
+                    user=user, product=item.product,
+                    quantity=item.quantity,
+                    size=item.size,
+                    addres=form.cleaned_data['addres'],
+                    delivery_method=form.cleaned_data['delivery_method'],
+                    payment_method=form.cleaned_data['payment_method']
+                )
+                item.product.sold += item.quantity
+                item.product.save()
+                OrderItem.objects.filter(user=user).delete()
+                messages.success(request, 'Your order has been successfully placed. Thank you!')
+            return redirect('home')
+    else:
+        form = OrderForm()
+
+    context = {
+        'form': form,
+        'cart_items': cart_items,
+        'total_price': total_price
+    }
+
+    return render(request, 'main/order.html', context=context)

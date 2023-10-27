@@ -35,3 +35,8 @@ class UpdateAddresForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['region', 'city', 'new_post']
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = OrderItem
+        fields = ['addres', 'delivery_method', 'payment_method']

@@ -47,7 +47,7 @@
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <div class="product-price">
                                                 {% if item.product.discount_price %}
-                                                    <small>{{ item.product.main_price }} грн</small></small> {{ item.product.discount_price }} грн
+                                                    <small>{{ item.product.main_price }} грн</small> {{ item.product.discount_price }} грн
                                                 {% else %}
                                                     {{ item.product.main_price }} грн
                                                 {% endif %}
@@ -64,23 +64,22 @@
                         {% endfor %}
 
                         <div class="card mb-5 align-items-center">
-                        <div class="card-body p-4 align-items-center">
+                            <div class="card-body p-4 align-items-center">
 
-                            <div class="align-items-center">
-                                <p class="mb-0 me-5 d-flex align-items-center">
-                                    <span class="me-2">Разом: <strong>{{ total_price }} грн</strong></span>
-                                    <span class="lead fw-normal"><small><strong></strong></small></span>
-                                </p>
+                                <div class="align-items-center">
+                                    <p class="mb-0 me-5 d-flex align-items-center">
+                                        <span class="me-2">Разом: <strong>{{ total_price }} грн</strong></span>
+                                        <span class="lead fw-normal"><small><strong></strong></small></span>
+                                    </p>
+                                </div>
+
                             </div>
-
                         </div>
-                    </div>
 
                     <div class="card">
-                        <div class="card-body">
-                            <button type="button" class="btn btn-dark btn-block btn-lg float-end">ОФОРМИТИ ЗАМОВЛЕННЯ
-                            </button>
-                            <div class="">
+                        <div class="card-body ">
+                            <a href="{% url 'order'  %}" class="btn btn-dark btn-block btn-lg float-end">ОФОРМИТИ ЗАМОВЛЕННЯ</a>
+                            <div>
                                 <a href="{% url 'home' %}">
                                     <ion-icon name="return-up-back-outline"></ion-icon>
                                     ПРОДОВЖИТИ ПОКУПКИ
@@ -90,16 +89,12 @@
                     </div>
                     {% else %}
                         <div class="mb-4 mx-auto text-center">
-                        <ion-icon class="custom-ion-icon" name="cart-outline" style="font-size: 200px;"></ion-icon>
-                        <h2 class="mt-2">Кошик для покупок</h2>
-                        <p style="font-size: 20px;">Kошик пустий!</p>
-                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">Продовжити</a>
-                </div>
-
+                            <ion-icon class="custom-ion-icon" name="cart-outline" style="font-size: 200px;"></ion-icon>
+                            <h2 class="mt-2">Кошик для покупок</h2>
+                            <p style="font-size: 20px;">Kошик пустий!</p>
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Продовжити</a>
+                        </div>
                     {% endif %}
-
-
-
                 </div>
             </div>
         </div>
