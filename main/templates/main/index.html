@@ -13,23 +13,6 @@
 <section class="main-content">
     <div class="container">
         <div class="row">
-            {% for msg in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ msg }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
-
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.success %} class="{{ message.success }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
             {% for p in posts %}
             <div class="col-lg-3 col-sm-6 mb-3">
                 <div class="product-card">

@@ -206,8 +206,8 @@ def add_to_wishlist(request, product_id):
 
 @login_required
 def wishlist(request):
-    wishlist_items = WishListItem.objects.filter(user=request.user)
-    return render(request, 'main/wishlist.html', {'wishlist_items': wishlist_items})
+     wishlist_items = WishListItem.objects.filter(user=request.user)
+     return render(request, 'main/wishlist.html', {'wishlist_items': wishlist_items})
 
 @login_required
 def remove_wishlist(request, item_id):
